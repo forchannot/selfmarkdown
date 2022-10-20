@@ -65,7 +65,8 @@ conda activate bot
 
 ```
 curl -sSL https://install.python-poetry.org | python3 -
-poetry -V
+
+poetry -V#验证是否成功安装
 ```
 
 回到初始base环境关闭poetry创建虚拟环境以免和conda冲突
@@ -82,7 +83,7 @@ poetry env info  #这一步用来验证是否成功，如果返回python版本�
 ```
 sudo apt update
 sudo apt install ffmpeg
-ffmpeg -version
+ffmpeg -version #验证是否安装成功
 ```
 
 ### 安装LittlePaimon（这里使用加速源，国外机请删掉前面加速源）
@@ -135,6 +136,7 @@ poetry run nb run
 ```
 
 如果没问题那么就可以享受啦！
+后续想要安装其他插件请在你的虚拟环境中执行`poetry run nb plugin install 插件名`即可
 
 
 
