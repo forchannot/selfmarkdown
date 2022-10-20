@@ -136,7 +136,7 @@ poetry run nb run
 
 ### （附加）安装nginx实现反代
 
-由于服务器基本默认开放了80端口，如没开放需开发，接下来安装nginx
+由于服务器基本默认开放了80端口，如没开放需自行开放80端口，接下来安装nginx
 
 ```
 sudo apt install nginx
