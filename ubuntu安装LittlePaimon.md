@@ -10,7 +10,7 @@ sudo apt update
 sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev
 ```
 
-### 安装python（这里推荐conda）
+### 安装python（这里推荐conda，已经装好了的可以跳过)
 
 ```
 wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -73,7 +73,7 @@ poetry -V#验证是否成功安装
 
 ```
 conda deactivate
-poetry config virtualenvs.create false
+poetry config virtualenvs.create false #如果没装conda可以跳过这一步
 conda activate bot
 poetry env info  #这一步用来验证是否成功，如果返回python版本是你之前创建的就可
 ```
