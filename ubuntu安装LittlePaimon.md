@@ -65,8 +65,10 @@ conda activate bot
 
 ```
 curl -sSL https://install.python-poetry.org | python3 -
-
-poetry -V#验证是否成功安装
+#验证是否成功安装
+poetry -V
+#如果发现提示command not find或者命令未找到执行如下命令
+sudo ln /root/.local/bin/poetry /usr/bin/poetry  #其中root为你自己的根目录名称，切勿无脑复制
 ```
 
 回到初始base环境关闭poetry创建虚拟环境以免和conda冲突
