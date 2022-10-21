@@ -7,7 +7,7 @@ sudo apt update
 ```
 
 ```
-sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget git libbz2-dev
 ```
 
 ### 安装python（这里推荐conda，已经装好了的可以跳到[安装poetry](#安装poetry))
