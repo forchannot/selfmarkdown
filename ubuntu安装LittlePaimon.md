@@ -154,8 +154,6 @@ sudo apt install nginx
 
 编辑/etc/nginx/nginx.conf文件，在http{}区块中更改server块如下。
 
-其中你需要将`/home/ubuntu/miniconda3/envs/bot/lib/python3.10/site-packages/pywebio/html;`替换成你自己`pywebio/html`的位置，如果跟着我的教程来的大致和我位置差不多
-
 随后将`127.0.0.1:13579`改为你自己的端口号
 
 如果你有自己的域名，将`server_name localhost;`中的localhost改为你自己的域名
@@ -164,9 +162,8 @@ sudo apt install nginx
 server {
 		server_name localhost;
 		listen 80;
-		location /bot/ {
-			proxy_pass http://127.0.0.1:13579/LittlePaimon/cookie/;
-			alias /home/ubuntu/miniconda3/envs/bot/lib/python3.10/site-packages/pywebio/html;
+		location /LittlePaimon/ {
+			proxy_pass http://127.0.0.1:13579/LittlePaimon/
 			proxy_set_header Host $host;
 			proxy_set_header X-Real-IP $remote_addr;
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -192,4 +189,4 @@ server {
 
 配置完成保存后将nginx软重启，运行`nginx -s reload`
 
-然后确保你的小派蒙正在运行，外网输入`http://你的公网ip/bot/`或者`http://你的公网ip/gocq/`验证一下吧
+然后确保你的小派蒙正在运行，外网输入`http://你的公网ip/LittlePaimon/login`进入你的管理页面，`http://你的公网ip/LittlePaimon/cookie`进入cookie绑定页面，`http://你的公网ip/gocq/`进入gocq页面验证一下吧
