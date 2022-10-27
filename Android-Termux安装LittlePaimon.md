@@ -133,13 +133,17 @@ poetry run nb run
 
 **好了，现在已经完成你的小派蒙安装了！**如需安装其他插件，请使用`poetry run nb plugin install xxx`
 
+下面是启动成功图
 
+[![xf3OQU.png](https://s1.ax1x.com/2022/10/27/xf3OQU.png)](https://imgse.com/i/xf3OQU)
 
 ## 附录：
 
 ### termux安装openssh让电脑控制手机termux
 
-关掉之前的termux重新打开termux，执行
+关掉之前的termux重新打开termux，或者在ubuntu内执行`exit`也可回到termux
+
+执行
 
 ```shell
 pkg install openssh -y 
@@ -159,7 +163,24 @@ pkg install openssh -y
 
 在你所熟悉的电脑ssh软件中输入上述信息，默认端口为`8022`，即可连接。
 
-如果使用openssh推荐使用screen命令来运行小派蒙
+**每次重新打开termux需要手动输入`sshd`进入openssh，如需每次打开termux自动启动openssh，请按照如下操作**
+
+打开termux，**不要进入ubuntu!** ，输入`touch .bashrc` ，随后使用你熟悉的编辑软件`nano`，`vim`或者`sftp`等编辑.bashrc文件添加如下内容并保存随后重启termux即可。如果你的终端为zsh，那么需要创建`.zshrc`而非`.bashrc`
+
+```
+echo "用户: "$(whoami)
+if pgrep -x "sshd" >/dev/null
+ then
+  echo "ssh服务已启动"
+ else
+  sshd
+  echo "成功启动ssh服务"
+fi
+```
+
+![image-20221027115513480](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027115513480.png)
+
+**ps：如果使用openssh推荐使用screen命令来运行小派蒙**
 
 进入ubuntu系统`tmoe p/c ubuntu-kinetic` (p 指 PRoot 容器，c 指 chroot 容器)
 
