@@ -137,10 +137,8 @@ screen -S bot  #随后自行cd进入小派蒙文件夹内
 poetry run nb run
 ```
 
-如果没问题那么就可以享受啦！
+如果没问题那么就可以享受啦！，如果resources下载缓慢，可在https://www.123pan.com/s/7VA9-IrqVv下载好后发到服务器解压即可
 后续想要安装其他插件请在你的虚拟环境中执行`poetry run nb plugin install 插件名`即可
-
-
 
 ### （附加）安装nginx实现反代
 
