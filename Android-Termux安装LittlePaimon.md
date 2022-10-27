@@ -12,7 +12,7 @@ curl -LO https://gitee.com/mo2/linux/raw/2/2.awk && awk -f 2.awk
 
 ### 启动tmoe
 
-![image-20221027103320071](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103320071.png)
+![xf3p28.png](https://s1.ax1x.com/2022/10/27/xf3p28.png)
 
 `选择Manager`
 
@@ -20,15 +20,15 @@ curl -LO https://gitee.com/mo2/linux/raw/2/2.awk && awk -f 2.awk
 
 由于国内 GitHub 连接较慢，推荐使用 Gitee
 
-![image-20221027103423481](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103423481.png)
+![xf1v5t.png](https://s1.ax1x.com/2022/10/27/xf1v5t.png)
 
 在出现 `(Y/I/N/O/D/Z) [default=N] ?` 之类的选项时：`直接按回车即可`
 
-![image-20221027103443220](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103443220.png)
+![xf1jUI.png](https://s1.ax1x.com/2022/10/27/xf1jUI.png)
 
 进入 TMOE 后，**有 `root 权限` 使用 `chroot 容器`，否则使用 `PRoot 容器`**
 
-![image-20221027103454750](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103454750.png)
+![xf1zPP.png](https://s1.ax1x.com/2022/10/27/xf1zPP.png)
 
 ### 安装ubuntu
 
@@ -42,19 +42,19 @@ curl -LO https://gitee.com/mo2/linux/raw/2/2.awk && awk -f 2.awk
 
 进入容器菜单之后，选择 `发行版列表`
 
-![image-20221027103610013](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103610013.png)
+![xf1XVA.png](https://s1.ax1x.com/2022/10/27/xf1XVA.png)
 
 选择`Ubuntu`
 
-![image-20221027103647420](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103647420.png)
+![xf3S8f.png](https://s1.ax1x.com/2022/10/27/xf3S8f.png)
 
 选择第一个`22.10(dev)`
 
-![image-20221027103719636](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103719636.png)
+![xf39xS.png](https://s1.ax1x.com/2022/10/27/xf39xS.png)
 
 选择 `启动`
 
-![image-20221027103753538](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103753538.png)
+![xf3PKg.png](https://s1.ax1x.com/2022/10/27/xf3PKg.png)
 
 等待容器安装完成 (如果在安装中出现问题，可以尝试移除容器后重装)
 
@@ -147,15 +147,15 @@ pkg install openssh -y
 
 输入`ifconfig`查看局域网ip，如图wlan0后`192.168.3.106`即为你的局域网ip
 
-![image-20221027110246005](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027110246005.png)
+![xf3Fbj.png](https://s1.ax1x.com/2022/10/27/xf3Fbj.png)
 
 输入`whoami`查看你的用户名
 
-![image-20221027110344714](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027110344714.png)
+![xf3irQ.png](https://s1.ax1x.com/2022/10/27/xf3irQ.png)
 
 输入`passwd`设置你的登陆密码
 
-![image-20221027110420349](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027110420349.png)
+![xf3AVs.png](https://s1.ax1x.com/2022/10/27/xf3AVs.png)
 
 在你所熟悉的电脑ssh软件中输入上述信息，默认端口为`8022`，即可连接。
 
