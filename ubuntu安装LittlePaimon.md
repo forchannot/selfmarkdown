@@ -63,6 +63,16 @@ conda activate bot
 
 ### 安装poetry
 
+**这里分两种情况**
+
+###### 直接安装python的
+
+```
+pip install poetry
+```
+
+###### 安装miniconda的
+
 ```
 curl -sSL https://install.python-poetry.org | python3 -
 #验证是否成功安装
