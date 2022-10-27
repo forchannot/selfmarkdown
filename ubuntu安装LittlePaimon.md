@@ -130,7 +130,7 @@ COMMAND_SEP=[""]
 poetry run nb plugin install nonebot-plugin-gocqhttp
 ```
 
-启动bot，浏览器访问链接`http://127.0.0.1:13579/go-cqhttp`，如果是云服务器，需开放13579端口，将`127.0.0.1`换成你的公网ip进行访问。如无法开放端口后续介绍nginx反代
+启动bot，浏览器访问链接`http://127.0.0.1:13579/go-cqhttp`，如果是云服务器，需开放13579端口，将`127.0.0.1`换成你的公网ip进行访问。如无法开放端口后续介绍[nginx反代](#（附加）安装nginx实现反代)
 
 ### 后台运行
 
