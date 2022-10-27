@@ -12,7 +12,7 @@ curl -LO https://gitee.com/mo2/linux/raw/2/2.awk && awk -f 2.awk
 
 ### 启动tmoe
 
-![image-20221027103320071](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103320071.png)
+![image-20221027103320071](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103320071.png)
 
 ```
 选择Manager
@@ -22,15 +22,15 @@ curl -LO https://gitee.com/mo2/linux/raw/2/2.awk && awk -f 2.awk
 
 由于国内 GitHub 连接较慢，推荐使用 Gitee
 
-![image-20221027103423481](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103423481.png)
+![image-20221027103423481](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103423481.png)
 
 在出现 `(Y/I/N/O/D/Z) [default=N] ?` 之类的选项时：`直接按回车即可`
 
-![image-20221027103443220](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103443220.png)
+![image-20221027103443220](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103443220.png)
 
 进入 TMOE 后，**有 `root 权限` 使用 `chroot 容器`，否则使用 `PRoot 容器`**
 
-![image-20221027103454750](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103454750.png)
+![image-20221027103454750](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103454750.png)
 
 ### 安装ubuntu
 
@@ -44,19 +44,19 @@ curl -LO https://gitee.com/mo2/linux/raw/2/2.awk && awk -f 2.awk
 
 进入容器菜单之后，选择 `发行版列表`
 
-![image-20221027103610013](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103610013.png)
+![image-20221027103610013](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103610013.png)
 
 选择`Ubuntu`
 
-![image-20221027103647420](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103647420.png)
+![image-20221027103647420](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103647420.png)
 
 选择第一个`22.10(dev)`
 
-![image-20221027103719636](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103719636.png)
+![image-20221027103719636](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103719636.png)
 
 选择 `启动`
 
-![image-20221027103753538](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027103753538.png)
+![image-20221027103753538](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027103753538.png)
 
 等待容器安装完成 (如果在安装中出现问题，可以尝试移除容器后重装)
 
@@ -149,15 +149,15 @@ pkg install openssh -y
 
 输入`ifconfig`查看局域网ip，如图wlan0后`192.168.3.106`即为你的局域网ip
 
-![image-20221027110246005](D:/Download/selfmarkdown/image-20221027110246005.png)
+![image-20221027110246005](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027110246005.png)
 
 输入`whoami`查看你的用户名
 
-![image-20221027110344714](D:/Download/selfmarkdown/image-20221027110344714.png)
+![image-20221027110344714](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027110344714.png)
 
 输入`passwd`设置你的登陆密码
 
-![image-20221027110420349](D:/Download/selfmarkdown/image-20221027110420349.png)
+![image-20221027110420349](https://github.com/forchannot/selfmarkdown/tree/main/img/image-20221027110420349.png)
 
 在你所熟悉的电脑ssh软件中输入上述信息，默认端口为`8022`，即可连接。
 
