@@ -178,7 +178,7 @@ if pgrep -x "sshd" >/dev/null
 fi
 ```
 
-![image-20221027115513480](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20221027115513480.png)
+[![xf3xeJ.png](https://s1.ax1x.com/2022/10/27/xf3xeJ.png)](https://imgse.com/i/xf3xeJ)
 
 **ps：如果使用openssh推荐使用screen命令来运行小派蒙**
 
