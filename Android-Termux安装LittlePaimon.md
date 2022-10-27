@@ -12,11 +12,9 @@ curl -LO https://gitee.com/mo2/linux/raw/2/2.awk && awk -f 2.awk
 
 ### 启动tmoe
 
-![image-20221027103320071](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103320071-1666840809219-3.png)
+![image-20221027103320071](https://github.com/forchannot/selfmarkdown/blob/main/img/image-20221027103320071.png)
 
-```
-选择Manager
-```
+`选择Manager`
 
 在出现 `您要继续吗? Do you want to continue?` 之类的选项时：`[Y/n]直接按回车，[y/N]输入y再回车`
 
