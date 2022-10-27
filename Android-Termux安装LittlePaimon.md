@@ -88,9 +88,9 @@ pip install poetry
 ### 安装小派蒙
 
 ```
-git clone --depth=1 https://gitee.com/CherishMoon/LittlePaimon
+git clone --depth=1 https://github.com/CherishMoon/LittlePaimon
 #国内加速地址
-git clone --depth=1 https://ghproxy.com/https://gitee.com/CherishMoon/LittlePaimon
+git clone --depth=1 https://ghproxy.com/https://github.com/CherishMoon/LittlePaimon
 ```
 
 ### 安装小派蒙所需的环境
