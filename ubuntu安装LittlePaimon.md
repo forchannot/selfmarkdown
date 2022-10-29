@@ -69,6 +69,8 @@ conda activate bot
 
 ```
 pip install poetry
+#如果出现类似于NameError: name 'pip/pip3' is not defined等的，请执行如下命令
+sudo apt install python3-pip
 ```
 
 ###### 安装miniconda的
