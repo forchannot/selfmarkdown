@@ -16,6 +16,8 @@
 
 #### 3.`Linux`系统组成：
 
+内核，shell，文件系统，应用程序
+
 #### 4.`MBR`分区命名：
 
 主分区占4个，逻辑分区从5开始编号，如`dev/sda`的第一个逻辑分区为`dev/sda5`
@@ -78,7 +80,7 @@
 
 **查找**：**命令模式**：`/str`（下一个）  `?str`（上一个）  `/`（下继续）  `?`（上继续）
 
-**替换**：**底行模式**：`:s/str1/str2`（行首次）`:s/str1/str2/g`（行所有）`a,b s/str1/str2/g`（a到b行的所有，当前行为`.` ，末行为`$`
+**替换**：**底行模式**：`:s/str1/str2`（行首次）`:s/str1/str2/g`（行所有）`:a,b s/str1/str2/g`（a到b行的所有，当前行为`.` ，末行为`$`
 
 #### 2.`gcc`的使用：
 
@@ -86,11 +88,11 @@
 
 **文件名变化**：`.c`→`.i`→`.s`→`.o`→`a.out`
 
-​				`-c`：只是编译不链接
+​				`-c`：只是编译不链接（生成.o)
 
-​				`-S`：只是编译不汇编
+​				`-S`：只是编译不汇编（生成.s）
 
-​				`-E`：只进行预编译
+​				`-E`：只进行预编译（生成.i）
 
 ​				`-o file`：把输出文件输出到file里
 
@@ -108,7 +110,7 @@
 
 #### 3.`makefile`的使用：
 
-```最基本的使用
+```makefile
 program: main.o add.o dec.o mul.o div.o
 	gcc main.o add.o dec.o mul.o div.o -o program
 main.o:main.c main.h#main.h可省略
@@ -125,7 +127,7 @@ clean:#伪目标
 	rm *.o program
 ```
 
-```使用变量
+```makefile
 objects = main.o add.o dec.o mul.o div.o
 CC=gcc #若系统的CC指向gcc，可省略
 CPPFLAGS=-I /tmp #若预处理无要求，可省略
@@ -211,7 +213,7 @@ clean:
 
 2.寻找`inode`号在磁盘上的位置
 
-3.计算`inode`所在的块组：`inode`所在块组=(`inode`号-1)/每块组`inode`个数去整
+3.计算`inode`所在的块组：`inode`所在块组=(`inode`号-1)/每块组`inode`个数 取整
 
 4.计算`inode`在该块组`inode`表中的序号：`inode`序号=(`inode`号-1)%每块组`inode`个数
 
@@ -223,7 +225,7 @@ clean:
 
 #### 6.`ext4`相对于`ext3`的改进：
 
-块号从32位扩展到48位，`inode`占用字节数扩展为256， 引入Flexible 块组和元块组（二选一），每个块组的结构不是完全固定的
+块号从32位扩展到48位，`inode`占用字节数扩展为256， 引入Flexible 块组和元块组（二选一），每个块组的结构不是完全固定的,索引变为了区段索引
 
 #### 7.`ext4`区段索引的基本原理：
 
@@ -243,7 +245,7 @@ clean:
 
 **程序**：一组指令的有序集合
 
-**进程**：具有独立功能的程序的一次 运行过程
+**进程**：具有独立功能的程序的一次运行过程
 
 #### 2.进程的标识、特点：
 
@@ -267,11 +269,11 @@ clean:
 
 #### 6.死锁，互斥与同步：
 
-**死锁**：指系统中若干进程相互 “无知地”等待对方所占有地资源而无限地处 于等待状态地一种僵持局
+**死锁**：指系统中若干进程相互 “无知地”等待对方所占有地资源而无限地处于等待状态地一种僵持局
 
 **产生死锁必要条件**：资源的独占使用 ▪ 资源的非抢占式分配 ▪ 对资源的保持和请求 ▪ 对资源的循环等待
 
-**互斥**：进程的互斥就是禁止多个进程同时进入各 自访问同一临界资源的临界区，以保证对 临界资源的排他性使用 
+**互斥**：进程的互斥就是禁止多个进程同时进入各自访问同一临界资源的临界区，以保证对临界资源的排他性使用 
 
 **同步**：进程的同步是指进程间为了合作完成一个 任务而相互等待、协调步调
 
@@ -283,7 +285,7 @@ clean:
 
 #### 8.多进程编程：
 
-```waitpid
+```c
 /*****waitpid.c********/
 #include<sys/types.h>
 #include<sys/wait.h>
@@ -321,9 +323,9 @@ int main(void)
    		if(pid_w==pid)
    		{
      			printf("Child Process %d End!\n",pid_w);
-    		}
-    		else
-     			printf("some error occured.\n");
+    	}
+    	else
+     		printf("some error occured.\n");
    	}
 }
 ```
@@ -356,76 +358,112 @@ CPU调度方面，线程是调度执行的基本单位
 
 #### 3.通信五元组：
 
-通信协议、本地主机地址、本地端口、远端 主机地址、远端端口
+通信协议、本地主机地址、本地端口、远端主机地址、远端端口
 
 五元组能唯一确定某次网络通信，socket包含这五种信息
 
 #### 4.`TCP`通信实现：
 
-```client
-int main(int argc, char *argv[])
-{	//参数判断略，共3个参数，命令名 ip 端口
-	int sockfd;
-	char buffer[1024];
-	struct sockaddr_in server_addr;
-	int nbytes;
-	portnumber=atoi(argv[2]);//ascii转为int，得到端口号
-	//创建socket描述符sockfd
-	sockfd=socket(AF_INET, SOCK_STREAM, 0)
-	bzero(&server_addr, sizeof(struct sockaddr_in));
-	server_addr.sin_family=AF_INET;
-	server_addr.sin_port=htons(portnumber);//字节序转换
-	server_addr.sin_addr.s_addr=inet_addr(argv[1]);
-	if(-1==connect(sockfd,(struct sockaddr *)(&server_addr),sizeof(struct sockaddr)))
-	{
-		printf("Connect Error\n");
-		exit(1);
-	}
-	if(-1==(nbytes=recv(sockfd,buffer,1024,0)))
-	{
-		printf("Read Error\n");
-		exit(1);
-	}
-	buffer[nbytes]='\0';
-	printf("I have received:%s\n",buffer);
-	close(sockfd);
-	exit(0);
+```c
+/* client */
+int main(int argc,char *argv[])
+{
+        int sockfd;	
+        char buffer[1024];
+        struct sockaddr_in server_addr;
+        struct hostent *host;
+        int nbytes;
+		short portnumber;
+        if(3!=argc){ //命令行参数不为3
+                fprintf(stderr,"Usage:%s hostname portnumber\a\n",argv[0]);
+                exit(1);
+        }
+        portnumber=atoi(argv[2]);
+        printf("server %s:%d\n",argv[1],portnumber);
+        if(1==(sockfd=socket(AF_INET,SOCK_STREAM,0))){
+                fprintf(stderr,"Socket error:%s\a\n",strerror(errno));
+                exit(1);
+        }
+        printf("Socket id is %d\n",sockfd);
+        bzero(&server_addr,sizeof(struct sockaddr_in));
+        server_addr.sin_family=AF_INET;
+        server_addr.sin_port=htons(portnumber);
+		server_addr.sin_addr.s_addr=inet_addr(argv[1]);
+        if(-1==connect(sockfd,(struct sockaddr *)(&server_addr),sizeof(struct sockaddr))){
+                fprintf(stderr,"Connect Error:%s\n\a",strerror(errno));
+                exit(1);
+        }
+        printf("Connect\n");
+        if(-1==(nbytes=recv(sockfd,buffer,1024,0))){
+                fprintf(stderr,"Read Error:%s\n\a",strerror(errno));
+                exit(1);
+        }
+        buffer[nbytes]='\0';
+        printf("I have received:%s\n",buffer);
+        close(sockfd);
+        exit(0);
 }
 ```
 
-```server
-int main(int argc, char *argv[])
+```c
+/* server */
+int main(int argc,char *argv[])
 {
-    int sockfd, new_fd; //这里有两个socket描述符
-    //分别存放服务器和客户端的地址、端口等信息
-    struct sockaddr_in server_addr, client_addr;
-    int sin_size, portnumber;
-    char input[1024];
-    short portnumber = atoi(argv[1]);
-    //创建socket
-    if(-1==(sockfd=socket(AF_INET,SOCK_STREAM,0)))
-    {
-    	exit(1);
-    }
-    bzero(&server_addr, sizeof(struct sockaddr_in));
-    server_addr.sin_family=AF_INET;//服务器使用的协议
-    server_addr.sin_addr.s_addr=htonl(INADDR_ANY);//服务器IP
-    server_addr.sin_port=htons(portnumber);//服务器端口号
-    //绑定sockfd
-    bind(sockfd, (struct sockaddr *)(&server_addr),
-    sizeof(struct sockaddr) )
-    //在sockfd上侦听，最多允许5个连接
-    listen(sockfd,5)
-    while(1){
-        //先清空客户端信息，防止出错
-        bzero(&client_addr, sizeof(struct sockaddr_in));
-        sin_size=sizeof(client_addr);//接受连接，将客户端信息存入client_addr，得到new_fd
-        new_fd=accept(sockfd, (struct sockaddr *)(&client_addr), &sin_size) fgets(input,1000, stdin);//输入字符，存入input
-        send(new_fd, input, strlen(input), 0)//将input发给客户端
-        close(new_fd);//关闭socket描述符
-    }
-    close(sockfd);//关闭socket描述符
-    exit(0);
+        int sockfd,new_fd;
+        struct sockaddr_in server_addr;
+        struct sockaddr_in client_addr;
+        int sin_size,portnumber;
+        char input[1024];
+        sin_size=sizeof(client_addr);
+        if(2!=argc){
+                fprintf(stderr,"Usage:%s portnumber\a\n",argv[0]);
+                exit(1);
+        }
+        if((portnumber=atoi(argv[1]))<0){
+                fprintf(stderr,"Usage:%s portnumber\a\n",argv[0]);
+                exit(1);
+        }
+        //server creating
+        if(1==(sockfd=socket(AF_INET,SOCK_STREAM,0))){
+                fprintf(stderr,"Socket error:%s portnumber\a\n",strerror(errno));
+                exit(1);
+        }
+        printf("Socket id is %d\n",sockfd);
+        bzero(&server_addr,sizeof(struct sockaddr_in));
+        server_addr.sin_family=AF_INET;
+        server_addr.sin_addr.s_addr=htonl(INADDR_ANY);
+        server_addr.sin_port=htons(portnumber);
+		printf("port :%d, network port:%d\n",portnumber,server_addr.sin_port);
+        //bind sockfd
+        if(-1==bind(sockfd,(struct sockaddr *)(&server_addr),sizeof(struct sockaddr))){
+                fprintf(stderr,"Bind error:%s\n\a",strerror(errno));
+                exit(1);
+        } 
+        printf("Bind\n");
+        //listen sockfd
+        if(-1==(listen(sockfd,5))){
+                fprintf(stderr,"Listen error:%s\n\a",strerror(errno));
+                exit(1);
+        }
+        printf("Listen\n");
+        while(1){
+                //try until connect
+                bzero(&client_addr,sizeof(struct sockaddr_in));
+                if(-1==(new_fd=accept(sockfd,(struct sockaddr *)(&client_addr),&sin_size))){
+                        fprintf(stderr,"Accept error:%s\n\a",strerror(errno));
+                        exit(1);
+                }
+                printf("Accept! sin_size=%d\n",sin_size);
+                printf("Server get connection from %s\nPlease input:",inet_ntoa(client_addr.sin_addr));
+				fgets(input,1000, stdin);
+                if(-1==send(new_fd,input,strlen(input),0)){
+                        fprintf(stderr,"Send Error:%s\n",strerror(errno));
+                        exit(1);
+                }
+               	close(new_fd);
+        }
+        close(sockfd);
+        exit(0);
 }
 ```
 
@@ -453,15 +491,15 @@ int main(int argc, char *argv[])
 
 *：匹配不限长度的多个字符
 
- ? ：匹配任意一个字符
+? ：匹配任意一个字符
 
- [] ：匹配字符组所限定的任何一个字符 
+[] ：匹配字符组所限定的任何一个字符 
 
- ! ：表示不在方括号中所列出的字符
+! ：表示不在方括号中所列出的字符
 
 #### 4.三种引号：
 
-**双引号**：双引号内的字符，除$、 `和\仍保留其特殊功能 外，其余字符均作为普通字符对待
+**双引号**：双引号内的字符，除`$`、 `和 \仍保留其特殊功能 外，其余字符均作为普通字符对待
 
 **单引号**：由单引号括起来的字符都作为普通字符出现
 
@@ -469,13 +507,13 @@ int main(int argc, char *argv[])
 
 #### 5.括号：
 
-()——命令组、结合$进行命令替换、初始 化数组array=(a b c d) 
+()——命令组、结合$进行命令替换、初始化数组`array=(a b c d)` 
 
 []——字符范围、数组编号、算术运算、条 件判断 
 
 {}——变量引用等
 
-(())——算术运算、for循环中的算术运算比 较for((i=0;i<5;i++)) 
+(())——算术运算、for循环中的算术运算比较`for((i=0;i<5;i++))` 
 
 [[]]——条件判断等
 
@@ -505,7 +543,7 @@ int main(int argc, char *argv[])
 
 #### 8.流程控制：
 
-```if
+```shell
 myhost=centos1.ls-al.me
 if ping -c1 -w2 $myhost &>/dev/null
 then
@@ -515,7 +553,7 @@ echo "$myhost is DOWN."
 fi
 ```
 
-```case
+```shell
 case x in
 	p1)
 		command1
@@ -529,28 +567,28 @@ case x in
 esac
 ```
 
-```for
+```shell
 for variable in list
 do 
 	commands
 done
 ```
 
-```for c语言型
+```shell
 for ((expr1;expr2;expr3)) # 执行 expr1
 do # 若 expr2的值为真时进入循环，否则退出 for循环
 	commands # 执行循环体，之后执行 expr3
 done # 循环结束的标志，返回循环顶部
 ```
 
-```while
+```shell
 while expr # 执行 expr
 do # 若expr的退出状态为0，进入循环，否则退出while
 	commands # 循环体
 done # 循环结束标志，返回循环顶部
 ```
 
-```until
+```shell
 until expr # 执行 expr
 do # 若expr的退出状态非0，进入循环，否则退出until
 	commands # 循环体
