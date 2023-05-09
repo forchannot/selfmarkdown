@@ -147,11 +147,11 @@ clean:
 
 ​			此外还有：
 
-`delete [断点号]`：删除指定断点，
+​			`delete [断点号]`：删除指定断点，
 
-`clear [行号或函数名]`：删除指定断点，
+​			`clear [行号或函数名]`：删除指定断点，
 
-`ignore [断点号] [次数]`：忽略某个断点多少次
+​			`ignore [断点号] [次数]`：忽略某个断点多少次
 
 ## 第三章：内核与启动管理：
 
@@ -181,9 +181,9 @@ clean:
 
 #### 1.文件的物理结构，逻辑结构：
 
-**物理结构**：文件在设备上的存储组 织形式，即存储结构、文件分配方式
+**物理结构**：文件在设备上的存储组织形式，即存储结构、文件分配方式
 
-​			分为连续文件，链式文件，索引文件
+​					分为连续文件，链式文件，索引文件
 
 **逻辑结构**：应用程序（用户）所看 到的文件结构
 
@@ -265,7 +265,7 @@ clean:
 
 先进先出`（FIFO）`，最短进程优先`（SJF）`，轮转调度`（RR）`， 优先级调度，完全公平调度法`（CFS）`
 
-`Linux`中实时进程采用FIFO或者RR，普通进程采用CFS
+`Linux`中**实时进程**严格按优先级调度，同优先级采用FIFO或者RR，**普通进程**采用完全公平调度法`（CFS）`
 
 #### 6.死锁，互斥与同步：
 
@@ -273,7 +273,7 @@ clean:
 
 **产生死锁必要条件**：资源的独占使用 ▪ 资源的非抢占式分配 ▪ 对资源的保持和请求 ▪ 对资源的循环等待
 
-**互斥**：进程的互斥就是禁止多个进程同时进入各自访问同一临界资源的临界区，以保证对临界资源的排他性使用 
+**互斥**：进程的互斥就是禁止多个进程同时进入各自访问同一临界资源的临界区，以保证对临界资源的排他性使用
 
 **同步**：进程的同步是指进程间为了合作完成一个 任务而相互等待、协调步调
 
@@ -287,11 +287,6 @@ clean:
 
 ```c
 /*****waitpid.c********/
-#include<sys/types.h>
-#include<sys/wait.h>
-#include<unistd.h>
-#include<stdio.h>
-#include<stdlib.h>
 int main(void)
 {
 	pid_t pid,pid_w;
@@ -466,6 +461,92 @@ int main(int argc,char *argv[])
         exit(0);
 }
 ```
+
+#### 5.`UDP`通信实现
+
+```c
+/* server */
+void msg_chat(int sockfd,struct sockaddr *pcliaddr,socklen_t clilen)
+{
+        int n;
+        socklen_t len;
+        char mesg[80];
+        for(;;)
+        {
+                len=clilen;
+                n=recvfrom(sockfd,mesg,80,0,pcliaddr,&len);
+                mesg[n]=0;
+                printf("\nClient Says:%s\n",mesg);
+                printf("Server says:");
+                fgets(mesg,80,stdin);
+                sendto(sockfd,mesg,strlen(mesg),0,pcliaddr,len);
+        }
+}
+
+int main(int argc, char* argv[])
+{
+        int sockfd;
+        struct sockaddr_in servaddr,cliaddr;
+        if (argc != 2)
+        {
+                printf("Usage: %s port\n",argv[0]);
+                return 0;
+        }
+        sockfd=socket(AF_INET,SOCK_DGRAM,0);
+        bzero(&servaddr,sizeof(servaddr));
+        servaddr.sin_family=AF_INET;
+        servaddr.sin_addr.s_addr=htonl(INADDR_ANY);
+        servaddr.sin_port=htons(atoi(argv[1]));
+        if(-1==bind(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr))){
+                perror("bind error");
+                exit(1);
+        }
+        msg_chat(sockfd,(struct sockaddr *)&cliaddr,sizeof(cliaddr));
+        return 0;
+}
+```
+
+```c
+/* client */
+void msg_chat(int sockfd,struct sockaddr *pservaddr,socklen_t servlen)
+{
+        int n;
+        socklen_t len;
+        char mesg[80];
+        while(1)
+        {
+                printf("Client Says:");
+                fgets(mesg,80,stdin);
+                sendto(sockfd,mesg,strlen(mesg),0,pservaddr,servlen);
+                n=recvfrom(sockfd,mesg,80,0,pservaddr,&len);
+                mesg[n]=0;
+                printf("Server Reply:%s\n",mesg);
+        }
+ 
+}
+
+int main(int argc,char **argv)
+{
+        int sockfd;
+        struct sockaddr_in servaddr;
+        if(argc!=3){
+                printf("Usage:%s IPaddress Port\n",argv[0]);
+                exit(1);
+        }
+        bzero(&servaddr,sizeof(servaddr));
+        servaddr.sin_family=AF_INET;
+        servaddr.sin_port=htons(atoi(argv[2]));
+        if(inet_aton(argv[1],&servaddr.sin_addr)<=0){
+                printf("[%s] is not a valid IPaddress\n",argv[1]);
+                exit(1);
+        }
+        sockfd=socket(AF_INET,SOCK_DGRAM,0);
+        msg_chat(sockfd,(struct sockaddr *)&servaddr, sizeof(servaddr));
+        return 0;
+}
+```
+
+
 
 ## 第八章：`Shell`编程：
 
